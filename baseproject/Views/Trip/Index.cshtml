@@ -1,0 +1,189 @@
+﻿@using baseproject.Base.Models;
+@model baseproject.Models.trip
+@{
+    ViewBag.Title = "Trip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>@ViewBag.Title</h2>
+<div>
+    @using (Html.BeginForm("CreateEditTrip", "Trip", FormMethod.Post, new { id = "frmtrip", @class = "" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Vehicle No.</label><span class="text-danger">*</span>
+                        @Html.DropDownList("vehicle_id", ViewBag.vehicle_id as List<SelectListItem>, "Please Select", new { @class = "form-control", onchange = "GetPartnerByVehicleOwner()", required = "required" })
+                        @Html.ValidationMessageFor(m => m.vehicle_id)
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Trip Date</label><span class="text-danger">*</span>
+                        <input type="datetime" id="trip_date" name="trip_date" class="form-control" placeholder="Trip Date" value="@System.DateTime.Today.ToString("dd-MMM-yyy")" required="required">
+                        @Html.ValidationMessageFor(m => m.trip_date)
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Trip Type</label><span class="text-danger">*</span>
+                        @Html.DropDownList("trip_type_id", ViewBag.trip_type_id as List<SelectListItem>, "Please Select", new { @class = "form-control", required = "required" })
+                        @Html.ValidationMessageFor(m => m.trip_type_id)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Client Name</label><span class="text-danger">*</span>
+                        @Html.DropDownList("client_id", ViewBag.client_id as List<SelectListItem>, "Please Select", new { @class = "form-control", onchange = "GetTripByclientmaterial()", required = "required" })
+                        @Html.ValidationMessageFor(m => m.client_id)
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Material Name</label><span class="text-danger">*</span>
+                        @Html.DropDownList("contract_material_id", ViewBag.contract_material_id as List<SelectListItem>, "Please Select", new { @class = "form-control", onchange = "GetTripByclientmaterial()", required = "required" })
+                        @Html.ValidationMessage("contract_material_id")
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Location (From-To)</label><span class="text-danger">*</span>
+                        @Html.DropDownList("trip_from_to", new List<SelectListItem>(), "Please Select", new { @class = "form-control", required = "required", onchange = "GetContractRate()" })
+                        @Html.ValidationMessage("trip_from_to")
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Contract Rate(/Ton)</label><span class="text-danger">*</span>
+                        @Html.TextBox("client_contract_rate", (int)ViewBag.client_contract_rate, new { @class = "form-control", name = "Contract rate", autofocus = true, id = "client_contract_rate", placeholder = "Contract Rate", maxlength = "100", required = "required", title = "Enter Contract Rate" })
+                        @*@Html.ValidationMessage("client_contract_rate")*@
+                    </div>
+                </div>
+                <div class="col-md-4" id="partnerdiv">
+                    <div class="form-group">
+                        <label>Partner Rate(/Ton)</label>&nbsp; &nbsp;<label id="partner_name"></label>
+                        @Html.TextBoxFor(m => m.contract_partner_rate, new { @class = "form-control", autofocus = true, id = "contract_partner_rate", placeholder = "Partner Rate", maxlength = "100", title = "Enter Partner Rate" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Enter Weight</label><span class="text-danger">*</span>
+                        @Html.TextBoxFor(m => m.material_weight, new { @class = "form-control", autofocus = true, id = "material_weight", placeholder = "Enter Weight", maxlength = "100", required = "required", title = "Enter Weight" })
+                        @Html.ValidationMessageFor(m => m.material_weight)
+                    </div>
+                </div>
+            @*</div>
+            <div class="col-md-12">*@
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Driver Name</label><span class="text-danger">*</span>
+                        @Html.DropDownListFor(m => m.trip_driver_id, ViewBag.trip_driver_id as List<SelectListItem>, "Please Select", new { @class = "form-control", required = "required" })
+                        @*@Html.ValidationMessageFor(m => m.trip_driver_id)*@
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Diesel Expense</label>
+                        @Html.TextBoxFor(m => m.diesel_exp, new { @class = "form-control", autofocus = true, id = "diesel_exp", placeholder = "Enter Diesel Expense", pattern = RegExConst.DecimalGreaterthanZero, title = "Enter Diesel Expense" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Rokad</label>
+                        @Html.TextBoxFor(m => m.rokad, new { @class = "form-control", autofocus = true, id = "rokad", placeholder = "Enter Rokad", pattern = RegExConst.DecimalGreaterthanZero, title = "Enter Rokad" })
+                    </div>
+                </div>
+            @*</div>
+            <div class="col-md-12">*@
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Builty</label>
+                        @Html.TextBoxFor(m => m.bitti, new { @class = "form-control", autofocus = true, id = "bitti", placeholder = "Enter Builty", pattern = RegExConst.DecimalGreaterthanZero, title = "Enter Builty" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Other Exp.</label>
+                        @Html.TextBoxFor(m => m.other_exp, new { @class = "form-control", autofocus = true, id = "other_exp", placeholder = "Enter Other Exp", pattern = RegExConst.DecimalGreaterthanZero, title = "Enter Other Exp" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Financer Name</label>
+                        @Html.DropDownList("financer_id", ViewBag.financer_id as List<SelectListItem>, "Please Select", new { @class = "form-control" })
+                    </div>
+                </div>
+            @*</div>
+            <div class="col-md-12">*@
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Description</label>
+                        @Html.TextAreaFor(m => m.description, new { @class = "form-control", autofocus = true, id = "description", placeholder = "Description" })
+                    </div>
+                </div>
+                <div id="DivIsActive" class="col-md-2" style="display:@(Model.trip_id != 0?"block":"none")">
+                    <div class="checkbox checkbox-primary pull-left p-t-0">
+                        <input id="is_active" name="is_active" type="checkbox" value="@Model.is_active">
+                        <label for="is_active"> Enable</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" style="text-align:right">
+                @Html.HiddenFor(m => m.contract_id)
+                @Html.HiddenFor(m => m.trip_id)
+                <button type="submit" id="postBtn" class="btn" style="background-color: #161717; color:white">Submit</button>
+                <button type="button" onclick="window.location.href='/Trip/Index'" id="postBtn" class="btn">Reset</button>
+                @Html.ActionLink("View Trip List", "TripList", "Trip", new { @class = "btn" })
+            </div>
+        </div>
+    }
+    @*<div class="row">
+            <div class="col-md-12" style="text-align:center">
+                <a>@Html.ActionLink("View Trip List", "TripList", "Trip", new { @class = "btn btn-primary btn-lg" })</a>
+            </div>
+        </div>*@
+</div>
+<script>
+    function GetTripByclientmaterial() {
+        BaseUtil.Cascading({
+            ctrlId: 'trip_from_to',
+            clearId: '',
+            clearCaption: 'Please Select',
+            controllerName: 'Trip',//saprated comma
+            actionName: 'Getcontract',//saprated comma
+            parmVal: $('#client_id').val() + ',' + $('#contract_material_id').val(),
+        });
+    }
+    function GetPartnerByVehicleOwner() {
+        $.post(base.getUrl('Trip', 'GetPartnerByVehicleOwner'), { id: $('#vehicle_id').val(), }, function (data) {
+            debugger
+            console.log(data)
+            if (data.ownership_type_id != 1)
+                $('#partnerdiv').show();
+            else
+                $('#partnerdiv').hide();
+        });
+    }
+
+    function GetContractRate() {
+        $.post(base.getUrl('Trip', 'GetcontractRate'), { id: $('#trip_from_to').val(), }, function (data) {
+            $('#contract_partner_rate').val(data.contract_partner_rate);
+            $('#client_contract_rate').val(data.client_contract_rate);
+            $('#contract_id').val(data.contract_id);
+            //$('#partner_name').text("(Name "+data.partner_name+")");
+        });
+    }
+    $(document).ready(function () {
+        GetTripByclientmaterial();
+        if ('@Model.contract_id' !='0') {
+            $(document).ajaxStop(function () {
+                $('#trip_from_to').val(@Model.contract_id);
+            });
+        };
+    })
+</script>

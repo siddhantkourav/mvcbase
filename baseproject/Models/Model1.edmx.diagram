@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5f96d4e20beb4936ac39b106ee1c1dec" Name="Diagram1">
+        <EntityTypeShape EntityType="TransportCorp_DBModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="7.75" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.app_error_log" Width="1.5" PointX="7.75" PointY="6.75" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.AspNetRole" Width="1.5" PointX="7.75" PointY="2.5" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.AspNetUserClaim" Width="1.5" PointX="12.25" PointY="3.625" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.AspNetUserLogin" Width="1.5" PointX="12.25" PointY="1" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.AspNetUser" Width="1.5" PointX="10" PointY="1.375" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.client" Width="1.5" PointX="0.75" PointY="8.875" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.contract" Width="1.5" PointX="3" PointY="1.5" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.contractLocation" Width="1.5" PointX="0.75" PointY="2.875" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.contractMaterial" Width="1.5" PointX="0.75" PointY="6.375" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.driver" Width="1.5" PointX="3" PointY="12.375" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.financer" Width="1.5" PointX="3" PointY="20.125" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.ownership_type" Width="1.5" PointX="0.75" PointY="15.125" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.partner" Width="1.5" PointX="0.75" PointY="11.625" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.trip" Width="1.5" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.tripType" Width="1.5" PointX="3" PointY="7.5" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.usrpasrecord" Width="1.5" PointX="9.75" PointY="6.75" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.vehicle" Width="1.5" PointX="3" PointY="15.625" />
+        <EntityTypeShape EntityType="TransportCorp_DBModel.vehicleOwnership" Width="1.5" PointX="0.75" PointY="17.625" />
+        <AssociationConnector Association="TransportCorp_DBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="TransportCorp_DBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="TransportCorp_DBModel.FK_contract_client" />
+        <AssociationConnector Association="TransportCorp_DBModel.FK_trip_client" />
+        <AssociationConnector Association="TransportCorp_DBModel.FK_contract_contractLocation" />
+        <AssociationConnector Association="TransportCorp_DBModel.FK_contract_contractLocation1" />
+        <AssociationConnector Association="TransportCorp_DBModel.FK_contract_contractMaterial" />
+        <AssociationConnector Association="TransportCorp_DBModel.FK_contract_partner" />
+        <AssociationConnector Association="TransportCorp_DBModel.FK_trip_contract" />
+        <AssociationConnector Association="TransportCorp_DBModel.FK_trip_driver" />
+        <AssociationConnector Association="TransportCorp_DBModel.FK_trip_financer" />
+        <AssociationConnector Association="TransportCorp_DBModel.FK_vehicle_ownership_type" />
+        <AssociationConnector Association="TransportCorp_DBModel.FK_trip_tripType" />
+        <AssociationConnector Association="TransportCorp_DBModel.FK_trip_vehicle" />
+        <AssociationConnector Association="TransportCorp_DBModel.FK_vehicle_vehicleOwnership" />
+        <AssociationConnector Association="TransportCorp_DBModel.AspNetUserRoles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

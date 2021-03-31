@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TransportCorp_DBModelStoreContainer" CdmEntityContainer="TransportCorp_DBEntities">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="app_error_log">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.app_error_log">
+        <MappingFragment StoreEntitySet="app_error_log">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="error_message" ColumnName="error_message" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="error_log_id" ColumnName="error_log_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.AspNetRole">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.AspNetUserClaim">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.AspNetUserLogin">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="clients">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.client">
+        <MappingFragment StoreEntitySet="client">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="client_name" ColumnName="client_name" />
+          <ScalarProperty Name="client_id" ColumnName="client_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contracts">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.contract">
+        <MappingFragment StoreEntitySet="contract">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="valid_to" ColumnName="valid_to" />
+          <ScalarProperty Name="valid_from" ColumnName="valid_from" />
+          <ScalarProperty Name="location_to" ColumnName="location_to" />
+          <ScalarProperty Name="location_from" ColumnName="location_from" />
+          <ScalarProperty Name="contract_partner_rate" ColumnName="contract_partner_rate" />
+          <ScalarProperty Name="partner_id" ColumnName="partner_id" />
+          <ScalarProperty Name="client_contract_rate" ColumnName="client_contract_rate" />
+          <ScalarProperty Name="contract_material_id" ColumnName="contract_material_id" />
+          <ScalarProperty Name="client_id" ColumnName="client_id" />
+          <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contractLocations">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.contractLocation">
+        <MappingFragment StoreEntitySet="contractLocation">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="contract_location_name" ColumnName="contract_location_name" />
+          <ScalarProperty Name="contract_location_id" ColumnName="contract_location_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contractMaterials">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.contractMaterial">
+        <MappingFragment StoreEntitySet="contractMaterial">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="contract_material_name" ColumnName="contract_material_name" />
+          <ScalarProperty Name="contract_material_id" ColumnName="contract_material_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="drivers">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.driver">
+        <MappingFragment StoreEntitySet="driver">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="driver_contact_no" ColumnName="driver_contact_no" />
+          <ScalarProperty Name="driver_name" ColumnName="driver_name" />
+          <ScalarProperty Name="driver_id" ColumnName="driver_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="financers">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.financer">
+        <MappingFragment StoreEntitySet="financer">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="financer_name" ColumnName="financer_name" />
+          <ScalarProperty Name="financer_id" ColumnName="financer_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ownership_type">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.ownership_type">
+        <MappingFragment StoreEntitySet="ownership_type">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="ownership_type_name" ColumnName="ownership_type_name" />
+          <ScalarProperty Name="ownership_type_id" ColumnName="ownership_type_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="partners">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.partner">
+        <MappingFragment StoreEntitySet="partner">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="partner_name" ColumnName="partner_name" />
+          <ScalarProperty Name="partner_id" ColumnName="partner_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="trips">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.trip">
+        <MappingFragment StoreEntitySet="trip">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="other_exp" ColumnName="other_exp" />
+          <ScalarProperty Name="bitti" ColumnName="bitti" />
+          <ScalarProperty Name="rokad" ColumnName="rokad" />
+          <ScalarProperty Name="diesel_exp" ColumnName="diesel_exp" />
+          <ScalarProperty Name="trip_driver_id" ColumnName="trip_driver_id" />
+          <ScalarProperty Name="material_weight" ColumnName="material_weight" />
+          <ScalarProperty Name="contract_partner_rate" ColumnName="contract_partner_rate" />
+          <ScalarProperty Name="financer_id" ColumnName="financer_id" />
+          <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+          <ScalarProperty Name="client_id" ColumnName="client_id" />
+          <ScalarProperty Name="trip_type_id" ColumnName="trip_type_id" />
+          <ScalarProperty Name="trip_date" ColumnName="trip_date" />
+          <ScalarProperty Name="vehicle_id" ColumnName="vehicle_id" />
+          <ScalarProperty Name="trip_id" ColumnName="trip_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tripTypes">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.tripType">
+        <MappingFragment StoreEntitySet="tripType">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="trip_type_name" ColumnName="trip_type_name" />
+          <ScalarProperty Name="trip_type_id" ColumnName="trip_type_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usrpasrecords">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.usrpasrecord">
+        <MappingFragment StoreEntitySet="usrpasrecord">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="create_date" ColumnName="create_date" />
+          <ScalarProperty Name="pass" ColumnName="pass" />
+          <ScalarProperty Name="user_hash_id" ColumnName="user_hash_id" />
+          <ScalarProperty Name="usrpasrecord_id" ColumnName="usrpasrecord_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vehicles">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.vehicle">
+        <MappingFragment StoreEntitySet="vehicle">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="vehicle_owner_id" ColumnName="vehicle_owner_id" />
+          <ScalarProperty Name="engine_no" ColumnName="engine_no" />
+          <ScalarProperty Name="chassis_no" ColumnName="chassis_no" />
+          <ScalarProperty Name="manufacturing_year" ColumnName="manufacturing_year" />
+          <ScalarProperty Name="vehicle_type" ColumnName="vehicle_type" />
+          <ScalarProperty Name="ownership_type_id" ColumnName="ownership_type_id" />
+          <ScalarProperty Name="rego_no" ColumnName="rego_no" />
+          <ScalarProperty Name="vehicle_id" ColumnName="vehicle_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vehicleOwnerships">
+      <EntityTypeMapping TypeName="TransportCorp_DBModel.vehicleOwnership">
+        <MappingFragment StoreEntitySet="vehicleOwnership">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="owner_contact_no" ColumnName="owner_contact_no" />
+          <ScalarProperty Name="owner_name" ColumnName="owner_name" />
+          <ScalarProperty Name="owner_id" ColumnName="owner_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="TransportCorp_DBModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetUser">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+      <EndProperty Name="AspNetRole">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

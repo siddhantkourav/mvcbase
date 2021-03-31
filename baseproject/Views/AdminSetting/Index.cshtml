@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="jumbotron">
+        <h1>Master Setup</h1>
+        <p>@Html.ActionLink("Register User", "CreateUser", "AdminSetting", routeValues: null, htmlAttributes: new { id = "registerLink" })</p>
+        <p><a href="AdminSetting/ClientIndex" class="btn btn-primary btn-lg">CreateRole</a></p>
+    </div>

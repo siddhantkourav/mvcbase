@@ -1,0 +1,125 @@
+﻿@using baseproject.Base.Models;
+@model baseproject.Models.client
+
+@{
+    ViewBag.Title = "Client";
+}
+<h2>@ViewBag.Title.</h2>
+<div>
+    @using (Html.BeginForm("ClientCreateEdit", "Master", FormMethod.Post, new { id = "frmclient", @class = "" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Client name</label><span class="text-danger">*</span>
+                    @Html.TextBoxFor(m => m.client_name, new { @class = "form-control", autofocus = true, id = "client_name", placeholder = "Client Name", maxlength = "100", required = "required", title = "Enter Client Name" })
+                </div>
+            </div>
+            <div id="DivIsActive" class="col-md-3" style="display:none">
+                <div class="checkbox checkbox-primary pull-left p-t-0">
+                    <input id="is_active" name="is_active" type="checkbox" value="@Model.is_active">
+                    <label for="is_active"> Enable</label>
+                </div>
+            </div>
+            @Html.HiddenFor(m => m.client_id)
+            <button type="submit" id="postBtn" onclick="btnSave()" class="btn">Submit</button>
+        </div>
+
+    }
+</div>
+<table id="example" class="table table-hover table-striped table-bordered" width="100%">
+    <thead class="thHead">
+        <tr>
+            <th>Client Name</th>
+            <th>Is&nbsp;Active</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+</table>
+<script>
+
+    function editClient(id) {
+        BaseUtil.EditForm({
+            ctrlId: '',
+            formId: 'frmclient',
+            parmVals: id,
+            controllerName: 'Master',
+            actionName: 'ClientEdit',
+        })
+        $('#DivIsActive').show();
+    }
+
+    function BindDataTable() {
+            var table = $('#example').DataTable();
+            table.destroy();
+            $('#example').DataTable({
+                dom: 'frtip',
+                pageLength: 200,
+                language: {
+                    search: "",
+                    searchPlaceholder: "Search"
+                },
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        className: 'dtbutton-copy',
+                        text: '<i class="fa fa-files-o"></i>',
+                        titleAttr: 'Copy'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        className: 'dtbutton-excel',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        titleAttr: 'Excel'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        className: 'dtbutton-csv',
+                        text: '<i class="fa fa-file-text-o"></i>',
+                        titleAttr: 'CSV'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        className: 'dtbutton-pdf',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        titleAttr: 'PDF'
+                    },
+                    {
+                        extend: 'print',
+                        className: 'dtbutton-print',
+                        text: '<i class="fa fa-print"></i>',
+                        titleAttr: 'Print'
+                    },
+                ],
+                "ajax": {
+                    type: "POST",
+                    url: '@Url.Action("ClientList", "Master")',
+                    datatype: "json",
+                    data: { id: "0" },
+                    dataSrc: ""
+                },
+                "sScrollX": "100%",
+                "sScrollY": "333px",
+                columns: [
+                    { data: "client_name", name: "client_name", autoWidth: true },
+                    {
+                        data: "is_active",
+                        "render": function (value) {
+                            return value ? "<span class='label label-success'>Yes</span>" : "<span class='label label-danger'>No</span>"
+                        }
+                    },
+                    {
+                        data: "client_id", "bSortable": false,
+                        "render": function (data, type, row) {
+                            return "<div class='action-btn '><a style='cursor:pointer' title='Edit' onclick='editClient(" + row.client_id + ")' > <i class='fa fa-pencil-square-o'></i> </a></div> "
+                        }
+                    },
+                ],
+            });
+    };
+
+    $(document).ready(function(){
+        BindDataTable()
+    })
+</script>

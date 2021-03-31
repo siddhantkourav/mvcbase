@@ -1,0 +1,514 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TransportCorp_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="app_error_log">
+    <Key>
+      <PropertyRef Name="error_log_id" />
+    </Key>
+    <Property Name="error_log_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="nvarchar" MaxLength="500" />
+    <Property Name="error_message" Type="nvarchar(max)" />
+    <Property Name="created_date" Type="datetime" Nullable="false" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="client_id" />
+    </Key>
+    <Property Name="client_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="client_name" Type="nvarchar" MaxLength="100" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="contract">
+    <Key>
+      <PropertyRef Name="contract_id" />
+    </Key>
+    <Property Name="contract_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="client_id" Type="int" Nullable="false" />
+    <Property Name="contract_material_id" Type="int" Nullable="false" />
+    <Property Name="client_contract_rate" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="partner_id" Type="int" />
+    <Property Name="contract_partner_rate" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="location_from" Type="int" Nullable="false" />
+    <Property Name="location_to" Type="int" Nullable="false" />
+    <Property Name="valid_from" Type="datetime" Nullable="false" />
+    <Property Name="valid_to" Type="datetime" Nullable="false" />
+    <Property Name="description" Type="nvarchar(max)" />
+    <Property Name="created_date" Type="datetime" Nullable="false" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="contractLocation">
+    <Key>
+      <PropertyRef Name="contract_location_id" />
+    </Key>
+    <Property Name="contract_location_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="contract_location_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="contractMaterial">
+    <Key>
+      <PropertyRef Name="contract_material_id" />
+    </Key>
+    <Property Name="contract_material_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="contract_material_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="driver">
+    <Key>
+      <PropertyRef Name="driver_id" />
+    </Key>
+    <Property Name="driver_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="driver_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="driver_contact_no" Type="nvarchar" MaxLength="15" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="financer">
+    <Key>
+      <PropertyRef Name="financer_id" />
+    </Key>
+    <Property Name="financer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="financer_name" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ownership_type">
+    <Key>
+      <PropertyRef Name="ownership_type_id" />
+    </Key>
+    <Property Name="ownership_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ownership_type_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="partner">
+    <Key>
+      <PropertyRef Name="partner_id" />
+    </Key>
+    <Property Name="partner_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="partner_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="trip">
+    <Key>
+      <PropertyRef Name="trip_id" />
+    </Key>
+    <Property Name="trip_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="vehicle_id" Type="int" Nullable="false" />
+    <Property Name="trip_date" Type="datetime" Nullable="false" />
+    <Property Name="trip_type_id" Type="int" Nullable="false" />
+    <Property Name="client_id" Type="int" Nullable="false" />
+    <Property Name="contract_id" Type="int" Nullable="false" />
+    <Property Name="financer_id" Type="int" />
+    <Property Name="contract_partner_rate" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="material_weight" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="trip_driver_id" Type="int" Nullable="false" />
+    <Property Name="diesel_exp" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="rokad" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="bitti" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="other_exp" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="description" Type="nvarchar(max)" />
+    <Property Name="created_date" Type="datetime" Nullable="false" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tripType">
+    <Key>
+      <PropertyRef Name="trip_type_id" />
+    </Key>
+    <Property Name="trip_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="trip_type_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="usrpasrecord">
+    <Key>
+      <PropertyRef Name="usrpasrecord_id" />
+    </Key>
+    <Property Name="usrpasrecord_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_hash_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="pass" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="create_date" Type="datetime" Nullable="false" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vehicle">
+    <Key>
+      <PropertyRef Name="vehicle_id" />
+    </Key>
+    <Property Name="vehicle_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="rego_no" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="ownership_type_id" Type="int" />
+    <Property Name="vehicle_type" Type="nvarchar" MaxLength="50" />
+    <Property Name="manufacturing_year" Type="int" />
+    <Property Name="chassis_no" Type="nvarchar" MaxLength="50" />
+    <Property Name="engine_no" Type="nvarchar" MaxLength="50" />
+    <Property Name="vehicle_owner_id" Type="int" Nullable="false" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vehicleOwnership">
+    <Key>
+      <PropertyRef Name="owner_id" />
+    </Key>
+    <Property Name="owner_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="owner_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="owner_contact_no" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_contract_client">
+    <End Role="client" Type="Self.client" Multiplicity="1" />
+    <End Role="contract" Type="Self.contract" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="client_id" />
+      </Principal>
+      <Dependent Role="contract">
+        <PropertyRef Name="client_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contract_contractLocation">
+    <End Role="contractLocation" Type="Self.contractLocation" Multiplicity="1" />
+    <End Role="contract" Type="Self.contract" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contractLocation">
+        <PropertyRef Name="contract_location_id" />
+      </Principal>
+      <Dependent Role="contract">
+        <PropertyRef Name="location_from" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contract_contractLocation1">
+    <End Role="contractLocation" Type="Self.contractLocation" Multiplicity="1" />
+    <End Role="contract" Type="Self.contract" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contractLocation">
+        <PropertyRef Name="contract_location_id" />
+      </Principal>
+      <Dependent Role="contract">
+        <PropertyRef Name="location_to" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contract_contractMaterial">
+    <End Role="contractMaterial" Type="Self.contractMaterial" Multiplicity="1" />
+    <End Role="contract" Type="Self.contract" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contractMaterial">
+        <PropertyRef Name="contract_material_id" />
+      </Principal>
+      <Dependent Role="contract">
+        <PropertyRef Name="contract_material_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contract_partner">
+    <End Role="partner" Type="Self.partner" Multiplicity="0..1" />
+    <End Role="contract" Type="Self.contract" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="partner">
+        <PropertyRef Name="partner_id" />
+      </Principal>
+      <Dependent Role="contract">
+        <PropertyRef Name="partner_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_trip_client">
+    <End Role="client" Type="Self.client" Multiplicity="1" />
+    <End Role="trip" Type="Self.trip" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="client_id" />
+      </Principal>
+      <Dependent Role="trip">
+        <PropertyRef Name="client_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_trip_contract">
+    <End Role="contract" Type="Self.contract" Multiplicity="1" />
+    <End Role="trip" Type="Self.trip" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contract">
+        <PropertyRef Name="contract_id" />
+      </Principal>
+      <Dependent Role="trip">
+        <PropertyRef Name="contract_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_trip_driver">
+    <End Role="driver" Type="Self.driver" Multiplicity="1" />
+    <End Role="trip" Type="Self.trip" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="driver">
+        <PropertyRef Name="driver_id" />
+      </Principal>
+      <Dependent Role="trip">
+        <PropertyRef Name="trip_driver_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_trip_financer">
+    <End Role="financer" Type="Self.financer" Multiplicity="0..1" />
+    <End Role="trip" Type="Self.trip" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="financer">
+        <PropertyRef Name="financer_id" />
+      </Principal>
+      <Dependent Role="trip">
+        <PropertyRef Name="financer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_trip_tripType">
+    <End Role="tripType" Type="Self.tripType" Multiplicity="1" />
+    <End Role="trip" Type="Self.trip" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tripType">
+        <PropertyRef Name="trip_type_id" />
+      </Principal>
+      <Dependent Role="trip">
+        <PropertyRef Name="trip_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_trip_vehicle">
+    <End Role="vehicle" Type="Self.vehicle" Multiplicity="1" />
+    <End Role="trip" Type="Self.trip" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vehicle">
+        <PropertyRef Name="vehicle_id" />
+      </Principal>
+      <Dependent Role="trip">
+        <PropertyRef Name="vehicle_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_vehicle_ownership_type">
+    <End Role="ownership_type" Type="Self.ownership_type" Multiplicity="0..1" />
+    <End Role="vehicle" Type="Self.vehicle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ownership_type">
+        <PropertyRef Name="ownership_type_id" />
+      </Principal>
+      <Dependent Role="vehicle">
+        <PropertyRef Name="ownership_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_vehicle_vehicleOwnership">
+    <End Role="vehicleOwnership" Type="Self.vehicleOwnership" Multiplicity="1" />
+    <End Role="vehicle" Type="Self.vehicle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vehicleOwnership">
+        <PropertyRef Name="owner_id" />
+      </Principal>
+      <Dependent Role="vehicle">
+        <PropertyRef Name="vehicle_owner_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TransportCorp_DBModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="app_error_log" EntityType="Self.app_error_log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contract" EntityType="Self.contract" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contractLocation" EntityType="Self.contractLocation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contractMaterial" EntityType="Self.contractMaterial" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="driver" EntityType="Self.driver" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="financer" EntityType="Self.financer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ownership_type" EntityType="Self.ownership_type" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partner" EntityType="Self.partner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="trip" EntityType="Self.trip" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tripType" EntityType="Self.tripType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="usrpasrecord" EntityType="Self.usrpasrecord" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vehicle" EntityType="Self.vehicle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vehicleOwnership" EntityType="Self.vehicleOwnership" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_contract_client" Association="Self.FK_contract_client">
+      <End Role="client" EntitySet="client" />
+      <End Role="contract" EntitySet="contract" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contract_contractLocation" Association="Self.FK_contract_contractLocation">
+      <End Role="contractLocation" EntitySet="contractLocation" />
+      <End Role="contract" EntitySet="contract" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contract_contractLocation1" Association="Self.FK_contract_contractLocation1">
+      <End Role="contractLocation" EntitySet="contractLocation" />
+      <End Role="contract" EntitySet="contract" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contract_contractMaterial" Association="Self.FK_contract_contractMaterial">
+      <End Role="contractMaterial" EntitySet="contractMaterial" />
+      <End Role="contract" EntitySet="contract" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contract_partner" Association="Self.FK_contract_partner">
+      <End Role="partner" EntitySet="partner" />
+      <End Role="contract" EntitySet="contract" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_trip_client" Association="Self.FK_trip_client">
+      <End Role="client" EntitySet="client" />
+      <End Role="trip" EntitySet="trip" />
+    </AssociationSet>
+    <AssociationSet Name="FK_trip_contract" Association="Self.FK_trip_contract">
+      <End Role="contract" EntitySet="contract" />
+      <End Role="trip" EntitySet="trip" />
+    </AssociationSet>
+    <AssociationSet Name="FK_trip_driver" Association="Self.FK_trip_driver">
+      <End Role="driver" EntitySet="driver" />
+      <End Role="trip" EntitySet="trip" />
+    </AssociationSet>
+    <AssociationSet Name="FK_trip_financer" Association="Self.FK_trip_financer">
+      <End Role="financer" EntitySet="financer" />
+      <End Role="trip" EntitySet="trip" />
+    </AssociationSet>
+    <AssociationSet Name="FK_trip_tripType" Association="Self.FK_trip_tripType">
+      <End Role="tripType" EntitySet="tripType" />
+      <End Role="trip" EntitySet="trip" />
+    </AssociationSet>
+    <AssociationSet Name="FK_trip_vehicle" Association="Self.FK_trip_vehicle">
+      <End Role="vehicle" EntitySet="vehicle" />
+      <End Role="trip" EntitySet="trip" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vehicle_ownership_type" Association="Self.FK_vehicle_ownership_type">
+      <End Role="ownership_type" EntitySet="ownership_type" />
+      <End Role="vehicle" EntitySet="vehicle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_vehicle_vehicleOwnership" Association="Self.FK_vehicle_vehicleOwnership">
+      <End Role="vehicleOwnership" EntitySet="vehicleOwnership" />
+      <End Role="vehicle" EntitySet="vehicle" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

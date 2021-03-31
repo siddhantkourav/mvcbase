@@ -1,0 +1,266 @@
+﻿
+@{
+    ViewBag.Title = "TripReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .totalbox {
+        border: 1px;
+        border-style: solid;
+        border-color: black;
+        background-color: #aea6a6;
+        padding: 10px;
+    }
+</style>
+<h2>@ViewBag.Title.</h2>
+<div class="row">
+    <div class="col-md-3">
+        <div class="totalbox">
+            <p>
+                Total Trip :- <label id="lbl_total_trip"> @ViewBag.total_trip</label>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="totalbox">
+            <p>
+                Total Weight :- <label id="lbl_total_weight"> @ViewBag.total_weight</label>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="totalbox">
+            <p>
+                Total Trip Cost :- <label id="lbl_total_trip_cost"> @ViewBag.total_trip_cost</label>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="totalbox">
+            <p>
+                Expences :- <label id="lbl_total_expenses"> @ViewBag.total_expenses</label>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>Vehicle No.</label>
+            @Html.DropDownList("vehicle_id", ViewBag.vehicle_id as List<SelectListItem>, "Please Select", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>Client Name</label>
+            @Html.DropDownList("client_id", ViewBag.client_id as List<SelectListItem>, "Please Select", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>Material Name</label>
+            @Html.DropDownList("contract_material_id", ViewBag.contract_material_id as List<SelectListItem>, "Please Select", new { @class = "form-control" })
+        </div>
+    </div>
+    @*<div class="col-md-4">
+            <div class="form-group">
+                <label>Location (From-To)</label>
+                @Html.DropDownList("trip_from_to", ViewBag.trip_from_to as List<SelectListItem>, "Please Select", new { @class = "form-control" })
+            </div>
+        </div>*@
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>Partner Name</label>
+            @Html.DropDownList("partner_id", ViewBag.partner_id as List<SelectListItem>, "Please Select", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>Trip Date From</label>
+            <input type="datetime" id="trip_date_from" name="trip_date" class="form-control" placeholder="Trip Date" value="@System.DateTime.Today.ToString("dd-MMM-yyy")" required="required">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>Trip Date To</label>
+            <input type="datetime" id="trip_date_to" name="trip_date" class="form-control" placeholder="Trip Date" value="@System.DateTime.Today.ToString("dd-MMM-yyy")" required="required">
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group" style="text-align:right">
+            <button type="button" onclick="BindDataTable()" class="btn" style="margin-top: 25px;">Search</button>
+        </div>
+    </div>
+</div>
+<table id="example" class="table table-hover table-striped table-bordered" width="100%">
+    <thead class="thHead">
+        <tr>
+            <th>Trip Date</th>
+            <th>Vehicle No.</th>
+            <th>Client Name</th>
+            <th>Material</th>
+            <th>Contract Rate(/Ton)</th>
+            <th>Partner Rate(/Ton)</th>
+            <th>Driver Name</th>
+            <th>From-To</th>
+            <th>Weight</th>
+            <th>Freight (Trip cost)</th>
+            <th>Diesel</th>
+            <th>Rokad</th>
+            <th>Builty</th>
+            <th>Other</th>
+            <th>Trip Balance</th>
+            <th>Partner Cost</th>
+            <th>Trip Margin (Profit)</th>
+            <th>Partner Balance</th>
+            <th>Funded By</th>
+        </tr>
+    </thead>
+</table>
+<script>
+    function BindDataTable() {
+        $.post(base.getUrl('Reports', 'GetTotalTripscal'), {
+            vehicle_id: $('#vehicle_id').val(),
+            trip_date_from: $('#trip_date_from').val(),
+            trip_date_to: $('#trip_date_to').val(),
+            client_id: $('#client_id').val(),
+            material_id: $('#contract_material_id').val(),
+            partner_id: $('#partner_id').val()
+        }, function (data) {
+            console.log(data)
+            $('#lbl_total_trip').text(data.total_trip);
+            $('#lbl_total_weight').text(data.total_weight);
+            $('#lbl_total_trip_cost').text(data.total_trip_cost);
+            $('#lbl_total_expenses').text(data.total_expenses);
+        });
+
+        var table = $('#example').DataTable();
+        table.destroy();
+        $('#example').DataTable({
+            dom: 'Bfrtip',
+            pageLength: 100,
+            language: {
+                search: "",
+                searchPlaceholder: "Search"
+            },
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    className: 'dtbutton-copy',
+                    text: '<i class="fa fa-files-o"></i>',
+                    titleAttr: 'Copy',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    className: 'dtbutton-excel',
+                    text: '<i class="fa fa-file-excel-o"></i>',
+                    titleAttr: 'Excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'csvHtml5',
+                    className: 'dtbutton-csv',
+                    text: '<i class="fa fa-file-text-o"></i>',
+                    titleAttr: 'CSV',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    className: 'dtbutton-pdf',
+                    text: '<i class="fa fa-file-pdf-o"></i>',
+                    titleAttr: 'PDF',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'print',
+                    className: 'dtbutton-print',
+                    text: '<i class="fa fa-print"></i>',
+                    titleAttr: 'Print',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'colvis',
+                    text: 'Hide Column',
+                    columnText: function (dt, idx, title) {
+                        return (idx + 1) + ': ' + title;
+                    }
+                },
+                {
+                    extend: 'colvisRestore',
+                    text: 'Show Column'
+                },
+
+            ],
+            "ajax": {
+                type: "POST",
+                url: '@Url.Action("GetTripReportList", "Reports")',
+                datatype: "json",
+                data: {
+                    vehicle_id: $('#vehicle_id').val(),
+                    trip_date_from: $('#trip_date_from').val(),
+                    trip_date_to: $('#trip_date_to').val(),
+                    client_id: $('#client_id').val(),
+                    material_id: $('#contract_material_id').val(),
+                    partner_id: $('#partner_id').val()
+                },
+                dataSrc: ""
+            },
+            "sScrollX": "100%",
+            "sScrollY": "333px",
+            columns: [
+                { data: "trip_date", name: "trip_date", autoWidth: true },
+                { data: "rego_no", name: "rego_no", autoWidth: true },
+                { data: "client_name", name: "client_name", autoWidth: true },
+                { data: "contract_material_name", name: "contract_material_name", autoWidth: true },
+                { data: "client_contract_rate", name: "client_contract_rate", autoWidth: true },
+                { data: "contract_partner_rate", name: "contract_partner_rate", autoWidth: true },
+                { data: "driver_name", name: "driver_name", autoWidth: true },
+                { data: "tripfrom_to", name: "tripfrom_to", autoWidth: true },
+                { data: "material_weight", name: "material_weight", autoWidth: true },
+                { data: "freight", name: "freight", autoWidth: true },
+                { data: "diesel_exp", name: "diesel_exp", autoWidth: true },
+                { data: "rokad", name: "rokad", autoWidth: true },
+                { data: "bitti", name: "bitti", autoWidth: true },
+                { data: "other_exp", name: "other_exp", autoWidth: true },
+                { data: "trip_balance", name: "trip_balance", autoWidth: true },
+                { data: "partner_cost", name: "partner_cost", autoWidth: true },
+                { data: "trip_margin", name: "trip_margin", autoWidth: true },
+                { data: "partner_balance", name: "partner_balance", autoWidth: true },
+                { data: "financer_name", name: "financer_name", autoWidth: true },
+                //{
+                //    data: "is_active",
+                //    "render": function (value) {
+                //        return value ? "<span class='label label-success'>Yes</span>" : "<span class='label label-danger'>No</span>"
+                //    }
+                //},
+                //{
+                //    data: "trip_id", "bSortable": false,
+                //    "render": function (data, type, row) {
+                //        return "<div class='action-btn '><a style='cursor:pointer' title='Edit' onclick='editTrip(" + row.trip_id + ")' > <i class='fa fa-pencil-square-o'></i> </a></div> "
+                //    }
+                //},
+            ],
+        });
+    };
+
+    $(document).ready(function () {
+        $today = new Date();
+        $yesterday = new Date($today);
+        $yesterday.setDate($today.getDate() - 6);
+        var $input = $('#trip_date_from').pickadate()
+        var picker = $input.pickadate('picker');
+        picker.set('select', $yesterday)
+        BindDataTable()
+    })
+</script>

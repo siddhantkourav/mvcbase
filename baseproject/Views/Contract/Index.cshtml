@@ -1,0 +1,270 @@
+﻿@using baseproject.Base.Models;
+@model baseproject.Models.contract
+@{
+    ViewBag.Title = "Contract";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>@ViewBag.Title.</h2>
+<div>
+    @using (Html.BeginForm("CreateEditContract", "Contract", FormMethod.Post, new { id = "frmcontract", @class = "" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Client Name</label><span class="text-danger">*</span>
+                    @Html.DropDownList("client_id", ViewBag.client_id as List<SelectListItem>, "Please Select", new { @class = "form-control", required = "required" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Material Name</label><span class="text-danger">*</span>
+                    @Html.DropDownList("contract_material_id", ViewBag.contract_material_id as List<SelectListItem>, "Please Select", new { @class = "form-control", required = "required" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Location From</label><span class="text-danger">*</span>
+                    @Html.DropDownList("location_from", ViewBag.location_from as List<SelectListItem>, "Please Select", new { @class = "form-control", required = "required" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Location To</label><span class="text-danger">*</span>
+                    @Html.DropDownList("location_to", ViewBag.location_to as List<SelectListItem>, "Please Select", new { @class = "form-control", required = "required" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Contract Rate(/Ton)</label><span class="text-danger">*</span>
+                    @Html.TextBoxFor(m => m.client_contract_rate, new { @class = "form-control", autofocus = true, id = "client_contract_rate", placeholder = "Contract Rate", maxlength = "100", required = "required", title = "Enter Contract Rate" })
+                    @Html.ValidationMessageFor(m => m.client_contract_rate)
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Valid From</label><span class="text-danger">*</span>
+                    <input type="datetime" id="valid_from" name="valid_from" class="form-control" placeholder="Valid From" value="@System.DateTime.Today.ToString("dd-MMM-yyy")" required="required">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Valid To</label><span class="text-danger">*</span>
+                    <input type="datetime" id="valid_to" name="valid_to" class="form-control" placeholder="Valid To" value="@System.DateTime.Today.AddDays(1).ToString("dd-MMM-yyy")" required="required">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Description</label><span class="text-danger">*</span>
+                    @Html.TextAreaFor(m => m.description, new { @class = "form-control", autofocus = true, id = "description", placeholder = "Description" })
+                </div>
+            </div>
+            <div id="DivIsActive" class="col-md-2" style="display:none">
+                <div class="checkbox checkbox-primary pull-left p-t-0">
+                    <input id="is_active" name="is_active" type="checkbox" value="@Model.is_active">
+                    <label for="is_active"> Enable</label>
+                </div>
+            </div>
+            @Html.HiddenFor(m => m.contract_id)
+            <button type="submit" id="postBtn" onclick="btnSave()" class="btn" style="margin-top: 25px;">Submit</button>
+        </div>
+    }
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Partner</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("AddPartner", "Contract", FormMethod.Post, new { id = "frmpartner", @class = "" }))
+            {
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Client Name</label><span class="text-danger">*</span>
+                                @Html.TextBox("client_name", "", new { @class = "form-control", id = "client_name", disabled = "disabled" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Material Name</label><span class="text-danger">*</span>
+                                @Html.TextBox("material_name", "", new { @class = "form-control", id = "material_name", disabled = "disabled" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Location</label><span class="text-danger">*</span>
+                                @Html.TextBox("location", "", new { @class = "form-control", id = "location", disabled = "disabled" })
+                            </div>
+                        </div>
+                        @*<div class="col-md-6">
+                            <div class="form-group">
+                                <label>Partner Name</label><span class="text-danger">*</span>
+                                @Html.DropDownList("partner_id", ViewBag.partner_id as List<SelectListItem>, "Please Select", new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>*@
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Trip Rate(/Ton)</label><span class="text-danger">*</span>
+                                @Html.TextBoxFor(m => m.contract_partner_rate, new { @class = "form-control", autofocus = true, id = "contract_partner_rate", placeholder = "Partner Rate", maxlength = "100", required = "required", title = "Enter Partner Rate" })
+                                @Html.ValidationMessageFor(m => m.contract_partner_rate)
+                            </div>
+                        </div>
+                        @Html.HiddenFor(m => m.contract_id)
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    @*<button type="submit" id="postBtn" onclick="btnSave()" class="btn btn-primary">Submit</button>*@
+                    <button type="submit" id="postBtn" onclick="btnSave()" class="btn btn-primary">Save changes</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<table id="example" class="table table-hover table-striped table-bordered" width="100%">
+    <thead class="thHead">
+        <tr>
+            <th>Client Name</th>
+            <th>Material</th>
+            <th>Contract Rate/Trip</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Valid From</th>
+            <th>Valid To</th>
+            <th>Description</th>
+            <th>Is&nbsp;Active</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+</table>
+<script>
+    function editContract(id) {
+        BaseUtil.EditForm({
+            ctrlId: '',
+            formId: 'frmcontract',
+            parmVals: id,
+            controllerName: 'Contract',
+            actionName: 'ContractEdit',
+        })
+        $('#DivIsActive').show();
+    }
+
+    function BindDataTable() {
+            var table = $('#example').DataTable();
+            table.destroy();
+        $('#example').DataTable({
+            dom: 'Bfrtip',
+            pageLength: 200,
+            language: {
+                search: "",
+                searchPlaceholder: "Search"
+            },
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    className: 'dtbutton-copy',
+                    text: '<i class="fa fa-files-o"></i>',
+                    titleAttr: 'Copy',
+                    exportOptions: {
+                        columns: 'th:not(:last-child)'
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    className: 'dtbutton-excel',
+                    text: '<i class="fa fa-file-excel-o"></i>',
+                    titleAttr: 'Excel',
+                    exportOptions: {
+                        columns: 'th:not(:last-child)'
+                    }
+                },
+                {
+                    extend: 'csvHtml5',
+                    className: 'dtbutton-csv',
+                    text: '<i class="fa fa-file-text-o"></i>',
+                    titleAttr: 'CSV',
+                    exportOptions: {
+                        columns: 'th:not(:last-child)'
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    className: 'dtbutton-pdf',
+                    text: '<i class="fa fa-file-pdf-o"></i>',
+                    titleAttr: 'PDF',
+                    exportOptions: {
+                        columns: 'th:not(:last-child)'
+                    }
+                },
+                {
+                    extend: 'print',
+                    className: 'dtbutton-print',
+                    text: '<i class="fa fa-print"></i>',
+                    titleAttr: 'Print',
+                    exportOptions: {
+                        columns: 'th:not(:last-child)'
+                    }
+                }
+            ],
+            "ajax": {
+                type: "POST",
+                url: '@Url.Action("ContractList", "Contract")',
+                datatype: "json",
+                data: { id: "0" },
+                dataSrc: ""
+            },
+            "sScrollX": "100%",
+            "sScrollY": "333px",
+            columns: [
+                { data: "client_name", name: "client_name", autoWidth: true },
+                { data: "contract_material_name", name: "contract_material_name", autoWidth: true },
+                { data: "client_contract_rate", name: "client_contract_rate", autoWidth: true },
+                { data: "contract_location_name1", name: "contract_location_name1", autoWidth: true },
+                { data: "contract_location_name2", name: "contract_location_name2", autoWidth: true },
+                { data: "valid_from", name: "valid_from", autoWidth: true },
+                { data: "valid_to", name: "valid_to", autoWidth: true },
+                {
+                    data: "description",
+                    "render": function (data, type, row) {
+                        return "<span class='label label-success' title = '" + data + "'> Description </span>"
+                    }
+                },
+                {
+                    data: "is_active",
+                    "render": function (value) {
+                        return value ? "<span class='label label-success'>Yes</span>" : "<span class='label label-danger'>No</span>"
+                    }
+                },
+                {
+                    data: "contract_id", "bSortable": false,
+                    "render": function (data, type, row) {
+                        return "<div class='action-btn '><a style='cursor:pointer' title='Edit' onclick='editContract(" + row.contract_id + ")' >  <i class='fa fa-pencil-square-o'></i>   </a> | <a style='cursor:pointer' title='" + (row.partner_id != null ? "Edit Partner" : "Add Partner") + "' onclick='partnerModal(" + row.contract_id + ")'><i class='fa fa-plus-square-o'></i></a>" + (row.partner_id != null ? " | <a style='cursor:pointer' title='Partner Rate :- "+ row.contract_partner_rate+"'><i class='fa far fa-eye'></i></a>" : "") + "</div> "
+                    }
+                },
+            ],
+        });
+    };
+
+    $(document).ready(function(){
+        BindDataTable()
+    })
+
+    function partnerModal(id) {
+        BaseUtil.EditForm({
+            ctrlId: '',
+            formId: 'frmpartner',
+            parmVals: id,
+            controllerName: 'Contract',
+            actionName: 'GetContractInfo',
+        })
+        $('#exampleModalCenter').modal('toggle')
+    };
+</script>

@@ -1,0 +1,134 @@
+﻿@using baseproject.Base.Models;
+@model baseproject.Models.driver
+
+@{
+    ViewBag.Title = "Driver";
+}
+<h2>@ViewBag.Title.</h2>
+<div>
+    @using (Html.BeginForm("DriverCreateEdit", "Master", FormMethod.Post, new { id = "frmdriver", @class = "" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Driver name</label><span class="text-danger">*</span>
+                    @Html.TextBoxFor(m => m.driver_name, new { @class = "form-control", autofocus = true, id = "driver_name", placeholder = "Driver Name", maxlength = "100", required = "required", title = "Enter Driver Name" })
+                    @Html.ValidationMessageFor(m => m.driver_name)
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Contact No.</label><span class="text-danger">*</span>
+                    @Html.TextBoxFor(m => m.driver_contact_no, new { @class = "form-control", autofocus = true, id = "driver_contact_no", placeholder = "Driver Contact No.", maxlength = "10", required = "required", title = "Enter Driver Contact No." })
+                    @Html.ValidationMessageFor(m => m.driver_contact_no)
+                </div>
+            </div>
+            <div id="DivIsActive" class="col-md-2" style="display:none">
+                <div class="checkbox checkbox-primary pull-left p-t-0">
+                    <input id="is_active" name="is_active" type="checkbox" value="@Model.is_active">
+                    <label for="is_active"> Enable</label>
+                </div>
+            </div>
+            @Html.HiddenFor(m => m.driver_id)
+            <button type="submit" id="postBtn" onclick="btnSave()" class="btn">Submit</button>
+        </div>
+    }
+</div>
+<table id="example" class="table table-hover table-striped table-bordered" width="100%">
+    <thead class="thHead">
+        <tr>
+            <th>Driver Name</th>
+            <th>Driver Contact No.</th>
+            <th>Is&nbsp;Active</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+</table>
+<script>
+
+    function editDriver(id) {
+        BaseUtil.EditForm({
+            ctrlId: '',
+            formId: 'frmdriver',
+            parmVals: id,
+            controllerName: 'Master',
+            actionName: 'DriverEdit',
+        })
+        $('#DivIsActive').show();
+    }
+
+    function BindDataTable() {
+            var table = $('#example').DataTable();
+            table.destroy();
+            $('#example').DataTable({
+                dom: 'frtip',
+                pageLength: 200,
+                language: {
+                    search: "",
+                    searchPlaceholder: "Search"
+                },
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        className: 'dtbutton-copy',
+                        text: '<i class="fa fa-files-o"></i>',
+                        titleAttr: 'Copy'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        className: 'dtbutton-excel',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        titleAttr: 'Excel'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        className: 'dtbutton-csv',
+                        text: '<i class="fa fa-file-text-o"></i>',
+                        titleAttr: 'CSV'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        className: 'dtbutton-pdf',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        titleAttr: 'PDF'
+                    },
+                    {
+                        extend: 'print',
+                        className: 'dtbutton-print',
+                        text: '<i class="fa fa-print"></i>',
+                        titleAttr: 'Print'
+                    },
+                ],
+                "ajax": {
+                    type: "POST",
+                    url: '@Url.Action("DriverList", "Master")',
+                    datatype: "json",
+                    data: { id: "0" },
+                    dataSrc: ""
+                },
+                "sScrollX": "100%",
+                "sScrollY": "333px",
+                columns: [
+                    { data: "driver_name", name: "driver_name", autoWidth: true },
+                    { data: "driver_contact_no", name: "driver_contact_no", autoWidth: true },
+                    {
+                        data: "is_active",
+                        "render": function (value) {
+                            return value ? "<span class='label label-success'>Yes</span>" : "<span class='label label-danger'>No</span>"
+                        }
+                    },
+                    {
+                        data: "driver_id", "bSortable": false,
+                        "render": function (data, type, row) {
+                            return "<div class='action-btn '><a style='cursor:pointer' title='Edit' onclick='editDriver(" + row.driver_id + ")' > <i class='fa fa-pencil-square-o'></i> </a></div> "
+                        }
+                    },
+                ],
+            });
+    };
+
+    $(document).ready(function(){
+        BindDataTable()
+    })
+</script>

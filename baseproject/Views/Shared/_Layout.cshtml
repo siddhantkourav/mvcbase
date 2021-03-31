@@ -1,0 +1,108 @@
+﻿@using Microsoft.AspNet.Identity;
+@using baseproject.Base.Models;
+@using Newtonsoft.Json;
+@{
+    Result result = (Result)ViewBag.Result ?? new Result();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    @*<link rel="stylesheet" href="/resources/demos/style.css">*@
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <link href="~/Scripts/js/jquery-toast-plugin-master/dist/jquery.toast.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/js/jquery-toast-plugin-master/dist/jquery.toast.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/plugins/pickers/pickadate/picker.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/plugins/pickers/pickadate/picker.date.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/plugins/pickers/pickadate/picker.time.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/plugins/pickers/pickadate/legacy.js"></script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Base/Calendar/moment.js"></script>
+    @Html.Raw(EnumUtil.GetJs(result, "Result"));
+    <script>
+        @Html.Raw(EnumUtil.GetJsEnum<MessageType>());
+        @Html.Raw(EnumUtil.GetJsConst(typeof(BaseConst)))
+    </script>
+
+    @Scripts.Render("~/bundles/base")
+
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+    <style>
+        .text-danger {
+            color: #fc4b6c !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(Global.ApplicationName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                @if (Request.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Trip", "Index", "Trip")</li>
+                        <li>@Html.ActionLink("Contract", "Index", "Contract")</li>
+                        <li>@Html.ActionLink("Report", "TripReport", "Reports")</li>
+                        <li>@Html.ActionLink("Master Setup", "Index", "Master")</li>
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+                            <li>@Html.ActionLink("UserSetup", "Index", "AdminSetting")</li>
+                        }
+                    </ul>
+                }
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - @Global.ApplicationName</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+        console.log(json_Result)
+        if (json_Result.Message != null) {
+            base.notificaton({ result: { title: json_Result.title, MessageType: json_Result.MessageType, Message: json_Result.Message } });
+        };
+    </script>
+    <div id="dialog-confirm" title="Warning?" style="display:none">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>This item will be permanently deleted and cannot be recovered. Are you sure?</p>
+    </div>
+</body>
+</html>
